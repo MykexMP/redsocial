@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "registerServlet", urlPatterns = {"/registerServlet"})
 public class registerServlet extends HttpServlet {
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,8 +33,8 @@ public class registerServlet extends HttpServlet {
         String password = request.getParameter("password");
         String secondPassword = request.getParameter("secondPassword");
         
-        String path = password.equals(secondPassword) ? "jsp/index.jsp" : "jsp/register.jsp";
-        request.getRequestDispatcher("jsp/main.jsp").forward(request, response);
+        String path = password.equals(secondPassword) ? "index.jsp" : "jsp/register.jsp";
+        request.getServletContext().getRequestDispatcher(path).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
