@@ -6,9 +6,12 @@
 package facade;
 
 import entity.Post;
+import entity.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,12 @@ public class PostFacade extends AbstractFacade<Post> {
 
     public PostFacade() {
         super(Post.class);
+    }
+    
+    public List<Post> findAllPostMainWindow(User u){
+        Query q = em.createQuery("SELECT p FROM Post p WHERE 1=1;"); // Edit Query
+        if(q.getResultList().size()<1) return null; 
+        else return q.getResultList(); 
     }
     
 }

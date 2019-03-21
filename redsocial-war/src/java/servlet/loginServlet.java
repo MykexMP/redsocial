@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlet;
 
+import entity.User;
 import facade.PostFacade;
+import facade.UserFacade;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class loginServlet extends HttpServlet {
 
     @EJB private PostFacade postFacade;
+    @EJB private UserFacade userFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,7 +35,13 @@ public class loginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("listaMensajes", postFacade.findAll());
+        
+        String user = request.getParameter("user");
+        String password = request.getParameter("password");
+        
+        User selected = userFacade.findByAliasAndPassword(user,password);
+        
+        request.setAttribute("listaMensajes", postFacade.findAllPostMainWindow(selected));
         request.getRequestDispatcher("jsp/main.jsp").forward(request, response);
     }
 

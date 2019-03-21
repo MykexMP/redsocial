@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlet;
 
+import entity.User;
+import facade.UserFacade;
 import java.io.IOException;
+import java.util.Date;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "registerServlet", urlPatterns = {"/registerServlet"})
 public class registerServlet extends HttpServlet {
+    
+    @EJB private UserFacade userFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,11 +35,33 @@ public class registerServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String alias = request.getParameter("user");
         String password = request.getParameter("password");
         String secondPassword = request.getParameter("secondPassword");
         
-        String path = password.equals(secondPassword) ? "index.jsp" : "jsp/register.jsp";
-        request.getServletContext().getRequestDispatcher(path).forward(request, response);
+        String error;
+        String path;
+        
+        if(userFacade.findByEmail(email)!=null)
+        {
+            error = "Ya hay una cuenta registrada con este email";
+            path = "jsp/register.jsp";
+        }
+        else if (!password.equals(secondPassword))
+        {
+            error = "Las contraseñas no coinciden";
+            path = "jsp/register.jsp";
+        }
+        else
+        {
+            userFacade.create(new User(0, email, password, alias, new Date()));
+            error = null;
+            path = "jsp/login.jsp";
+        }
+        
+        request.setAttribute("error", error);
+        request.getRequestDispatcher(path).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

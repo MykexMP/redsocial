@@ -13,12 +13,11 @@
     </head>
     <body>
         <div class="formularioLogin">
-            <form action="loginServlet">
+            <form action="<%= request.getContextPath() %>/loginServlet">
                 <label>Usuario:</label><br/>
                 <input name="user" type="text"/><br/>
                 <label>Contraseña:</label><br/>
                 <input name="password" type="password"/><br/>
-                <label>Contraseña:</label><br/>
                 <input type="submit" value="Entrar">
             </form>
         </div>

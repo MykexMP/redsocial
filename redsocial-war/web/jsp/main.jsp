@@ -22,8 +22,8 @@
                     <th>Mensaje</th>
                 </tr>
                 <% for (Message m : listaMensajes) { %>
-                    <td><% // m.getPropietario(); %></td>
-                    <td><% // m.getText(); %></td>
+                    <td><% m.getSender(); %></td>
+                    <td><% m.getTextMessage(); %></td>
                 <% } %>
             </table>
         </div>

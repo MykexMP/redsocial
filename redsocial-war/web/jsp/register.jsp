@@ -13,7 +13,9 @@
     </head>
     <body>
         <div class="registerServlet">
-            <form action="registerServlet">
+            <form action="<%= request.getContextPath() %>/registerServlet">
+                <label>Email:</label><br/>
+                <input name="email" type="text"/><br/>
                 <label>Usuario:</label><br/>
                 <input name="user" type="text"/><br/>
                 <label>Contraseña:</label><br/>
@@ -23,5 +25,8 @@
                 <input type="submit" value="Registrarse">
             </form>
         </div>
+            <% if (request.getAttribute("error")!=null ) { %>
+                <label><%= request.getAttribute("error") %></label>
+            <% } %>
     </body>
 </html>
