@@ -33,9 +33,8 @@ public class PostFacade extends AbstractFacade<Post> {
     }
     
     public List<Post> findAllPostMainWindow(User u){
-        Query q = em.createQuery("SELECT p FROM Post p WHERE 1=1;"); // Edit Query
-        if(q.getResultList().size()<1) return null; 
-        else return q.getResultList(); 
+        Query q = em.createQuery("SELECT p FROM Post p"); // Edit Query
+        return q.getResultList(); 
     }
     
 }
