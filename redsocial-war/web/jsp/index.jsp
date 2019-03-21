@@ -21,6 +21,9 @@
                 <input type="submit" value="Entrar">
             </form>
         </div>
+            <% if (request.getAttribute("error")!=null ) { %>
+                <label><%= request.getAttribute("error") %></label>
+            <% } %>
             <form action="jsp/register.jsp">
                 <label>¿No tienes cuenta? Haz click en registrarse.</label><br/>
                 <input type="submit" value="Registrarse">

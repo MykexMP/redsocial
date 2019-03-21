@@ -5,9 +5,7 @@
  */
 package servlet;
 
-import entity.User;
-import facade.PostFacade;
-import facade.UserFacade;
+import facade.VisibilityFacade;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,14 +18,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mykex
  */
-@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
-public class loginServlet extends HttpServlet {
+@WebServlet(name = "newPostServlet", urlPatterns = {"/newPostServlet"})
+public class newPostServlet extends HttpServlet {
 
-    @EJB private PostFacade postFacade;
-    @EJB private UserFacade userFacade;
+    @EJB private VisibilityFacade visibilityFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -36,28 +34,8 @@ public class loginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String user = request.getParameter("user");
-        String password = request.getParameter("password");
-        
-        User selected = userFacade.findByAliasAndPassword(user,password);
-        
-        String error;
-        String path;
-        
-        if(selected!=null){
-            request.setAttribute("listaPost", postFacade.findAllPostMainWindow(selected));
-            request.getSession().setAttribute("user", selected);
-            error = null;
-            path = "jsp/main.jsp";
-        }
-        else
-        {
-            error = " No se ha podido autenticar ";
-            path = "jsp/index.jsp";
-        }
-        
-        request.setAttribute("error", error);
-        request.getRequestDispatcher(path).forward(request, response);
+        request.setAttribute("visibilities",visibilityFacade.findAll());
+        request.getRequestDispatcher("jsp/newPost.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

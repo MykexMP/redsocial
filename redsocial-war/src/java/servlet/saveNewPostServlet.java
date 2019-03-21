@@ -5,10 +5,14 @@
  */
 package servlet;
 
+import entity.Post;
 import entity.User;
+import entity.Visibility;
 import facade.PostFacade;
-import facade.UserFacade;
+import facade.VisibilityFacade;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,14 +24,15 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mykex
  */
-@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
-public class loginServlet extends HttpServlet {
+@WebServlet(name = "saveNewPostServlet", urlPatterns = {"/saveNewPostServlet"})
+public class saveNewPostServlet extends HttpServlet {
 
     @EJB private PostFacade postFacade;
-    @EJB private UserFacade userFacade;
+    @EJB private VisibilityFacade visibilityFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -35,29 +40,14 @@ public class loginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Post p = new Post(0, new Date());
+        p.setCreator((User) request.getSession().getAttribute("user"));
+        p.setTextPost(request.getParameter("post"));
+        p.setVisibility(visibilityFacade.find(Integer.parseInt(request.getParameter("visibility"))));
+        postFacade.create(p);
         
-        String user = request.getParameter("user");
-        String password = request.getParameter("password");
-        
-        User selected = userFacade.findByAliasAndPassword(user,password);
-        
-        String error;
-        String path;
-        
-        if(selected!=null){
-            request.setAttribute("listaPost", postFacade.findAllPostMainWindow(selected));
-            request.getSession().setAttribute("user", selected);
-            error = null;
-            path = "jsp/main.jsp";
-        }
-        else
-        {
-            error = " No se ha podido autenticar ";
-            path = "jsp/index.jsp";
-        }
-        
-        request.setAttribute("error", error);
-        request.getRequestDispatcher(path).forward(request, response);
+        request.setAttribute("listaPost", postFacade.findAllPostMainWindow((User) request.getSession().getAttribute("user")));
+        request.getRequestDispatcher("jsp/main.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

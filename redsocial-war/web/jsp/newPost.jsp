@@ -21,7 +21,7 @@
             <textarea name="post"></textarea><br/>
             <select name="visibility">
                 <% for (Visibility v : visibilities) { %>
-                    <option value="<%= v %>"><%= v.getTypeVis() %></option> <!-- puedo pasarlo asi el v? -->
+                    <option value="<%= v.getId() %>"><%= v.getTypeVis() %></option> <!-- puedo pasarlo asi el v? -->
                 <% } %>
                 
             </select>

@@ -4,7 +4,7 @@
     Author     : Mykex
 --%>
 
-<%@page import="entity.Message"%>
+<%@page import="entity.Post"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,18 +14,21 @@
         <title>Main</title>
     </head>
     <body>
-        <% List<Message> listaMensajes = (List<Message>) request.getAttribute("listaMensajes"); %>
+        <% List<Post> listaPost = (List<Post>) request.getAttribute("listaPost"); %>
         <div class="listaMensajes">
             <table>
                 <tr>
                     <th>Propietario</th>
                     <th>Mensaje</th>
                 </tr>
-                <% for (Message m : listaMensajes) { %>
-                    <td><% m.getSender(); %></td>
-                    <td><% m.getTextMessage(); %></td>
+                <% for (Post p : listaPost) { %>
+                <tr>
+                    <td><%= p.getCreator().getAlias() %></td>
+                    <td><%= p.getTextPost() %></td>
+                </tr>
                 <% } %>
             </table>
         </div>
+            <form action="<%= request.getContextPath() %>/newPostServlet"><input type="submit" value="Nuevo Post"></form>
     </body>
 </html>
