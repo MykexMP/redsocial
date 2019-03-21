@@ -4,6 +4,7 @@
     Author     : Mykex
 --%>
 
+<%@page import="entity.Message"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,17 +14,17 @@
         <title>Main</title>
     </head>
     <body>
-        <%// List<Mensaje> listaMensajes = request.getAttribute("listaMensajes"); %>
+        <% List<Message> listaMensajes = (List<Message>) request.getAttribute("listaMensajes"); %>
         <div class="listaMensajes">
             <table>
                 <tr>
                     <th>Propietario</th>
                     <th>Mensaje</th>
                 </tr>
-                <% //for (Mensaje m : listaMensajes) { %>
+                <% for (Message m : listaMensajes) { %>
                     <td><% // m.getPropietario(); %></td>
                     <td><% // m.getText(); %></td>
-                <% //} %>
+                <% } %>
             </table>
         </div>
     </body>
