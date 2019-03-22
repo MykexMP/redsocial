@@ -33,7 +33,7 @@ public class PostFacade extends AbstractFacade<Post> {
     }
     
     public List<Post> findAllPostMainWindow(User u){
-        Query q = em.createQuery("SELECT p FROM Post p WHERE p.visibility.typeVis = 'Public' ORDER BY p.datePost"); // Edit Query
+        Query q = em.createQuery("SELECT p FROM Post p WHERE p.visibility.typeVis = 'Public' ORDER BY p.datePost DESC"); // Edit Query
         return q.getResultList(); 
     }
     
