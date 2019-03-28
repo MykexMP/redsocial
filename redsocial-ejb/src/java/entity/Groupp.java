@@ -8,7 +8,6 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,8 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -46,20 +43,13 @@ public class Groupp implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "nameGroup")
-    private String nameGroup;
-    @Size(max = 250)
-    @Column(name = "descript")
-    private String descript;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "dateCreation")
+    private Integer id;    
+    @Column(name = "nameGroup",nullable = false)
+    private String nameGroup;   
+    @Column(name = "descript",nullable = false)
+    private String descript;   
+    @Column(name = "dateCreation",nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGroup")

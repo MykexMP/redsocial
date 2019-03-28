@@ -7,7 +7,6 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -38,13 +36,10 @@ public class Friend implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "dateFriendship")
+    private Integer id;   
+    @Column(name = "dateFriendship",nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateFriendship;
     @JoinColumn(name = "sender", referencedColumnName = "id")

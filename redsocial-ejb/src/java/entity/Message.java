@@ -7,7 +7,6 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,8 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -41,19 +38,15 @@ public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "dateSend")
+    private Integer id;   
+    @Column(name = "dateSend",nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateSend;
-    @Size(max = 300)
-    @Column(name = "textMessage")
+    private Date dateSend;   
+    @Column(name = "textMessage",nullable = false)
     private String textMessage;
-    @Column(name = "isRead")
+    @Column(name = "isRead",nullable = false)
     private Boolean isRead;
     @JoinColumn(name = "sender", referencedColumnName = "id")
     @ManyToOne(optional = false)

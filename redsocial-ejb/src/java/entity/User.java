@@ -80,7 +80,6 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
     private List<Message> messageList1;
 
-
     public User() {
     }
 
