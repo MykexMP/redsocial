@@ -14,6 +14,8 @@
         <title>Main</title>
     </head>
     <body>
+        <jsp:include page='navBar.jsp'/>
+        
         <% List<Post> listaPost = (List<Post>) request.getAttribute("listaPost"); %>
         <div class="listaMensajes">
             <table>

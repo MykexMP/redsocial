@@ -15,6 +15,8 @@
         <title>Your new post, <%= ((User) request.getSession().getAttribute("user")).getAlias() %></title>
     </head>
     <body>
+        <jsp:include page='navBar.jsp'/>
+        
         <% List<Visibility> visibilities = (List<Visibility>) request.getAttribute("visibilities"); %>
         <form action="<%= request.getContextPath() %>/saveNewPostServlet">
             <label>Pon aquí tu nuevo post:</label><br/>

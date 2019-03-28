@@ -46,18 +46,18 @@ public class registerServlet extends HttpServlet {
         if(userFacade.findByEmail(email)!=null)
         {
             error = "Ya hay una cuenta registrada con este email";
-            path = "jsp/register.jsp";
+            path = "jsp/index.jsp";
         }
         else if (!password.equals(secondPassword))
         {
             error = "Las contraseñas no coinciden";
-            path = "jsp/register.jsp";
+            path = "jsp/index.jsp";
         }
         else
         {
             userFacade.create(new User(0, email, password, alias, new Date()));
-            error = null;
-            path = "jsp/login.jsp";
+            error = "Creado con éxito";
+            path = "jsp/index.jsp";
         }
         
         request.setAttribute("error", error);

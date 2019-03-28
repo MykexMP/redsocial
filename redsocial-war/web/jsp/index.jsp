@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/styles.css">
         <title>Login</title>
     </head>
     <body>
@@ -21,12 +22,24 @@
                 <input type="submit" value="Entrar">
             </form>
         </div>
-            <% if (request.getAttribute("error")!=null ) { %>
-                <label><%= request.getAttribute("error") %></label>
-            <% } %>
-            <form action="jsp/register.jsp">
-                <label>¿No tienes cuenta? Haz click en registrarse.</label><br/>
+        <br/><label>¿No tienes cuenta?</label><br/>
+        <div class="formularioRegister">
+            <form action="<%= request.getContextPath() %>/registerServlet">
+                <label>Email:</label><br/>
+                <input name="email" type="text"/><br/>
+                <label>Usuario:</label><br/>
+                <input name="user" type="text"/><br/>
+                <label>Contraseña:</label><br/>
+                <input name="password" type="password"/><br/>
+                <label>Repita su Contraseña:</label><br/>
+                <input name="secondPassword" type="password"/><br/>
                 <input type="submit" value="Registrarse">
             </form>
+        </div>
+            <div class="errorText">
+                <% if (request.getAttribute("error")!=null ) { %>
+                    <label><%= request.getAttribute("error") %></label>
+                <% } %>
+            </div>
     </body>
 </html>
